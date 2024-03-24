@@ -4,6 +4,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "CAnimInstance.h"
+#include "CPistol.h"
 
 ACPlayer::ACPlayer()
 {
@@ -43,8 +44,11 @@ ACPlayer::ACPlayer()
 
 void ACPlayer::BeginPlay()
 {
+
+	Pistol = ACPistol::Spawn(GetWorld(), this);
+
+
 	Super::BeginPlay();
-	
 }
 
 void ACPlayer::Tick(float DeltaTime)
@@ -61,6 +65,8 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis("HorizontalLook", this, &ACPlayer::OnHorizontalLook);
 	PlayerInputComponent->BindAxis("VerticalLook", this, &ACPlayer::OnVerticalLook);
+
+	// TODO 1-22  
 }
 
 void ACPlayer::OnMoveForward(float InAxis)

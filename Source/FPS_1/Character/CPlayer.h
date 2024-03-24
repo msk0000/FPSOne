@@ -33,4 +33,6 @@ private:
 	UPROPERTY(VisibleDefaultsOnly)
 		class UCameraComponent* Camera;
 
+private:
+	class ACPistol* Pistol;
 };
