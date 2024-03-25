@@ -16,9 +16,6 @@ ACPistol::ACPistol()
 	if(pistolAsset.Succeeded())
 		Mesh->SetSkeletalMesh(pistolAsset.Object);
 		
-
-
-	
 }
 
 ACPistol* ACPistol::Spawn(UWorld* InWorld, ACharacter* InOwner)

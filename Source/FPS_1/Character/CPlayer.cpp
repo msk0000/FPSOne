@@ -5,6 +5,7 @@
 #include "Components/CapsuleComponent.h"
 #include "CAnimInstance.h"
 #include "CPistol.h"
+#include "Widget/CAimWidget.h"
 
 ACPlayer::ACPlayer()
 {
@@ -25,7 +26,7 @@ ACPlayer::ACPlayer()
 	// SpringArm
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
 	SpringArm->SetupAttachment(GetCapsuleComponent());
-	SpringArm->SetRelativeLocation(FVector(0, 0, 60)); // TODO  last
+	SpringArm->SetRelativeLocation(FVector(0, 0, 90));   
 	SpringArm->TargetArmLength = 200.f;
 	SpringArm->bDoCollisionTest = false;
 	SpringArm->bUsePawnControlRotation = true;
@@ -33,13 +34,19 @@ ACPlayer::ACPlayer()
 	// CameraComp
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Camera->SetupAttachment(SpringArm);
+	Camera->SetRelativeLocation(FVector(220, 5, 10)); // TODO  last
 
 	// Movement
 	GetCharacterMovement()->MaxWalkSpeed = 400;
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	bUseControllerRotationYaw = false;
 	
-
+	// Get Widget ClassRef
+	ConstructorHelpers::FClassFinder<UCAimWidget> aimAsset(TEXT("WidgetBlueprint'/Game/Widgets/WB_Aim.WB_Aim_C'"));
+	if(aimAsset.Succeeded())
+		AimWidgetClass = aimAsset.Class;
+	
+	
 }
 
 void ACPlayer::BeginPlay()
@@ -47,6 +54,12 @@ void ACPlayer::BeginPlay()
 
 	Pistol = ACPistol::Spawn(GetWorld(), this);
 
+	// Create Widgets
+	if (!!AimWidgetClass)
+	{
+		AimWidget = CreateWidget<UCAimWidget, APlayerController>(GetController<APlayerController>(), AimWidgetClass);
+		AimWidget->AddToViewport();
+	}
 
 	Super::BeginPlay();
 }
@@ -65,8 +78,7 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis("HorizontalLook", this, &ACPlayer::OnHorizontalLook);
 	PlayerInputComponent->BindAxis("VerticalLook", this, &ACPlayer::OnVerticalLook);
-
-	// TODO 1-22  
+ 
 }
 
 void ACPlayer::OnMoveForward(float InAxis)
@@ -94,3 +106,5 @@ void ACPlayer::OnVerticalLook(float InAxis)
 {
 	AddControllerPitchInput(InAxis);
 }
+
+

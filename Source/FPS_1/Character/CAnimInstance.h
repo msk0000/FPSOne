@@ -19,6 +19,12 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Character")
 		float Speed;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Character")
+		float Direction;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Character")
+		float Pitch;//
+
 private:
 	class ACPlayer* Player;
 

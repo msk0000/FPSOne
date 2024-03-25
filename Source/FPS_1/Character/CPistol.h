@@ -31,4 +31,5 @@ private:
 
 private:
 	class ACharacter* OwnerCharacter;
+
 };
