@@ -21,13 +21,16 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
-	
+	void GetAimInfo(FVector& OutAimStart, FVector& OutAimEnd, FVector& OutAimDirection);
 
 private:
 	void OnMoveForward(float InAxis);
 	void OnMoveRight(float InAxis);
 	void OnHorizontalLook(float InAxis);
 	void OnVerticalLook(float InAxis);
+
+private:
+	void Fire();
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)

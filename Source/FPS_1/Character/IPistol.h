@@ -15,5 +15,6 @@ class FPS_1_API IIPistol
 	GENERATED_BODY()
 
 public:
-	
+	virtual void GetAimInfo(FVector& OutAimStart, FVector& OutAimEnd, FVector& OutAimDirection) = 0;
+
 };

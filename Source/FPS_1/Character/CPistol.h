@@ -21,9 +21,17 @@ public:
 public:
 	static ACPistol* Spawn(class UWorld* InWorld, class ACharacter* InOwner);
 
+public:
+	void LeftFire(); //
+	//void RightFire();
+	void Firing();
+
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Socket")
 		FName HandSocket = "hand_Pistol";
+
+	UPROPERTY(EditDefaultsOnly, Category = "Effect")
+		TSubclassOf<UCameraShake> ShakeClass;
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
@@ -31,5 +39,7 @@ private:
 
 private:
 	class ACharacter* OwnerCharacter;
+
+	bool bFiring; // 왼쪽버튼 누르고있는지
 
 };

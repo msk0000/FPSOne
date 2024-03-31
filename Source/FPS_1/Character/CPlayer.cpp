@@ -1,6 +1,7 @@
 #include "CPlayer.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "CAnimInstance.h"
@@ -34,7 +35,7 @@ ACPlayer::ACPlayer()
 	// CameraComp
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Camera->SetupAttachment(SpringArm);
-	Camera->SetRelativeLocation(FVector(220, 5, 10)); // TODO  last
+	Camera->SetRelativeLocation(FVector(220, 10, 10)); // TODO  last
 
 	// Movement
 	GetCharacterMovement()->MaxWalkSpeed = 400;
@@ -78,7 +79,20 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis("HorizontalLook", this, &ACPlayer::OnHorizontalLook);
 	PlayerInputComponent->BindAxis("VerticalLook", this, &ACPlayer::OnVerticalLook);
+
+	PlayerInputComponent->BindAction("Fire",EInputEvent::IE_Pressed, this, &ACPlayer::Fire);
+
  
+}
+
+void ACPlayer::GetAimInfo(FVector& OutAimStart, FVector& OutAimEnd, FVector& OutAimDirection)
+{
+	OutAimDirection = Camera->GetForwardVector();
+
+	FVector cameraLocation = Camera->GetComponentToWorld().GetLocation();
+	OutAimStart = cameraLocation + OutAimDirection * 50.f;
+	FVector randomDirection = UKismetMathLibrary::RandomUnitVectorInConeInDegrees(OutAimDirection, 0.2f);
+	OutAimEnd = cameraLocation + randomDirection * 3000.f;
 }
 
 void ACPlayer::OnMoveForward(float InAxis)
@@ -105,6 +119,11 @@ void ACPlayer::OnHorizontalLook(float InAxis)
 void ACPlayer::OnVerticalLook(float InAxis)
 {
 	AddControllerPitchInput(InAxis);
+}
+
+void ACPlayer::Fire()
+{
+	Pistol->LeftFire();
 }
 
 
