@@ -43,9 +43,13 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 		TSubclassOf<class UCAimWidget> AimWidgetClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
+		TSubclassOf<class UCRightWidget> RightwidgetClass;
+
 private:
 	class ACPistol* Pistol;
 	class UCAimWidget* AimWidget;
+	class UCRightWidget* RightWidget;
 
 	
 };

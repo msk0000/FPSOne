@@ -7,6 +7,7 @@
 #include "CAnimInstance.h"
 #include "CPistol.h"
 #include "Widget/CAimWidget.h"
+#include "Widget/CRightWidget.h"
 
 ACPlayer::ACPlayer()
 {
@@ -47,19 +48,27 @@ ACPlayer::ACPlayer()
 	if(aimAsset.Succeeded())
 		AimWidgetClass = aimAsset.Class;
 	
-	
+	ConstructorHelpers::FClassFinder<UCRightWidget> rightAsset(TEXT("WidgetBlueprint'/Game/Widgets/WB_RightWidget.WB_RightWidget_C'"));
+	if (rightAsset.Succeeded())
+		RightwidgetClass = rightAsset.Class;
+
 }
 
 void ACPlayer::BeginPlay()
 {
 
 	Pistol = ACPistol::Spawn(GetWorld(), this);
-
 	// Create Widgets
 	if (!!AimWidgetClass)
 	{
 		AimWidget = CreateWidget<UCAimWidget, APlayerController>(GetController<APlayerController>(), AimWidgetClass);
 		AimWidget->AddToViewport();
+	}
+
+	if (!!RightwidgetClass)
+	{
+		RightWidget = CreateWidget<UCRightWidget, APlayerController>(GetController<APlayerController>(), RightwidgetClass);
+		RightWidget->AddToViewport();
 	}
 
 	Super::BeginPlay();
