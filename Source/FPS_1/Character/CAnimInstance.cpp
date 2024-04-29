@@ -25,5 +25,6 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	//Pitch = Player->GetControlRotation().Pitch;
 	Pitch = Player->GetBaseAimRotation().Pitch;
-
+	//Yaw = Player->GetBaseAimRotation().Yaw;
+	//FMath::RInterpTo
 }

@@ -25,6 +25,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Character")
 		float Pitch;//
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Character")
+		float Yaw;
+	// TODO
 private:
 	class ACPlayer* Player;
 
