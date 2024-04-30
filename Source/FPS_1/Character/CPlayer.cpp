@@ -85,12 +85,12 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis("MoveForward", this, &ACPlayer::OnMoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ACPlayer::OnMoveRight);
-
 	PlayerInputComponent->BindAxis("HorizontalLook", this, &ACPlayer::OnHorizontalLook);
 	PlayerInputComponent->BindAxis("VerticalLook", this, &ACPlayer::OnVerticalLook);
 
-	PlayerInputComponent->BindAction("Fire",EInputEvent::IE_Pressed, this, &ACPlayer::Fire);
-
+	PlayerInputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &ACPlayer::Fire);
+	//PlayerInputComponent->BindAction("Roll", EInputEvent::IE_Pressed, this, );
+	//PlayerInputComponent->BindAction("Throw", EInputEvent::IE_Pressed, this, );
  
 }
 
