@@ -31,6 +31,7 @@ private:
 
 private:
 	void Fire();
+	void Roll();
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)

@@ -89,7 +89,7 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("VerticalLook", this, &ACPlayer::OnVerticalLook);
 
 	PlayerInputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &ACPlayer::Fire);
-	//PlayerInputComponent->BindAction("Roll", EInputEvent::IE_Pressed, this, );
+	PlayerInputComponent->BindAction("Roll", EInputEvent::IE_Pressed, this, &ACPlayer::Roll);
 	//PlayerInputComponent->BindAction("Throw", EInputEvent::IE_Pressed, this, );
  
 }
@@ -133,6 +133,11 @@ void ACPlayer::OnVerticalLook(float InAxis)
 void ACPlayer::Fire()
 {
 	Pistol->LeftFire();
+}
+
+void ACPlayer::Roll()
+{
+
 }
 
 
